@@ -32,7 +32,7 @@ st.set_page_config(
     page_title="AI Excel 智能标注工具",
     page_icon="🎯",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # 登录验证
@@ -90,10 +90,37 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
     }
     
-    /* 调整间距 */
+    /* 主体容器宽度限制和响应式设计 */
     .block-container {
         padding-top: 2rem;
         padding-bottom: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 1400px) {
+        .block-container {
+            max-width: 1100px;
+        }
+    }
+    
+    @media (max-width: 1200px) {
+        .block-container {
+            max-width: 95%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .block-container {
+            max-width: 100%;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
     }
     
     /* 主标题 */
@@ -123,6 +150,15 @@ st.markdown("""
         gap: 0.5rem;
     }
     
+    /* 移动端章节标题调整 */
+    @media (max-width: 768px) {
+        .section-header {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    }
+    
     /* 信息框 */
     .info-box {
         background-color: #f8fafc;
@@ -131,6 +167,22 @@ st.markdown("""
         border: 1px solid #e2e8f0;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         margin: 1.2rem 0;
+    }
+    
+    /* 移动端信息框调整 */
+    @media (max-width: 768px) {
+        .info-box {
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .info-box h2 {
+            font-size: 1.2rem !important;
+        }
+        
+        .info-box p {
+            font-size: 0.9rem !important;
+        }
     }
     
     /* 成功框 */
@@ -182,17 +234,39 @@ st.markdown("""
         border-radius: 0.5rem !important;
         padding: 0.6rem 1.2rem !important;
         transition: all 0.2s ease !important;
+        border: 1px solid #e2e8f0 !important;
+        background-color: #f8fafc !important;
+        color: #475569 !important;
     }
     
     button[kind="secondary"]:hover {
         background-color: #f1f5f9 !important;
+        border-color: #cbd5e1 !important;
         transform: translateY(-1px) !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
     }
     
     /* 表格优化 */
     [data-testid="stDataFrame"] {
         border-radius: 0.75rem !important;
         overflow: hidden !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* 表格响应式 */
+    @media (max-width: 768px) {
+        [data-testid="stDataFrame"] {
+            font-size: 0.8rem !important;
+        }
+        
+        [data-testid="stDataFrame"] th,
+        [data-testid="stDataFrame"] td {
+            padding: 0.3rem !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            max-width: 150px !important;
+        }
     }
     
     /* 表格行选中样式 */
@@ -271,6 +345,13 @@ st.markdown("""
     [data-testid="stFileUploader"]:hover {
         border-color: #667eea !important;
         background-color: #f8fafc !important;
+    }
+    
+    /* 移动端文件上传器优化 */
+    @media (max-width: 768px) {
+        [data-testid="stFileUploader"] {
+            padding: 1rem !important;
+        }
     }
     
     /* 移除多余的分隔线 */
@@ -578,15 +659,27 @@ def main():
     
     # 标题和Logo
     st.markdown("""
-    <div style="text-align: center; margin-bottom: 2rem;">
-        <div style="display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; border-radius: 20px; box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3); margin-bottom: 1rem;">
-            <div style="font-size: 2.5rem; margin-right: 0.5rem;">🎯</div>
-            <div>
-                <div style="font-size: 2.2rem; font-weight: 700; color: white; letter-spacing: -1px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">AI Excel 智能标注</div>
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+        <div style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                    padding: 1.5rem 3rem; border-radius: 20px; margin-bottom: 1.5rem;
+                    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+                <div style="background: rgba(255, 255, 255, 0.2); width: 60px; height: 60px; 
+                            border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 2rem;">🎯</span>
+                </div>
+                <div>
+                    <div style="font-size: 2.2rem; font-weight: 700; color: white; margin: 0;">
+                        AI Excel 智能标注
+                    </div>
+                    <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.8); margin: 0.3rem 0 0 0;">
+                        INTELLIGENT ANNOTATION TOOL
+                    </div>
+                </div>
             </div>
         </div>
-        <div style="font-size: 1.1rem; color: #64748b; font-weight: 500;">
-            🚀 让AI为您的Excel数据快速添加智能标注
+        <div style="font-size: 1.1rem; color: #667eea; font-weight: 600;">
+            🚀 让AI为您的Excel数据快速添加智能标注，提升工作效率
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -600,17 +693,17 @@ def main():
                 一个强大的AI驱动工具，可以帮助您自动标注Excel或CSV数据，节省大量手动工作时间。
             </p>
             <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0;">
-                <div style="background-color: #f8fafc; padding: 1rem; border-radius: 0.5rem; width: 180px; text-align: center;">
+                <div style="background-color: #f8fafc; padding: 1rem; border-radius: 0.5rem; width: 180px; min-width: 150px; max-width: 200px; text-align: center; flex: 1;">
                     <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔑</div>
                     <div style="font-weight: 600; margin-bottom: 0.5rem;">第一步</div>
                     <p style="font-size: 0.9rem; color: #64748b;">在侧边栏配置API并测试连接</p>
                 </div>
-                <div style="background-color: #f8fafc; padding: 1rem; border-radius: 0.5rem; width: 180px; text-align: center;">
+                <div style="background-color: #f8fafc; padding: 1rem; border-radius: 0.5rem; width: 180px; min-width: 150px; max-width: 200px; text-align: center; flex: 1;">
                     <div style="font-size: 2rem; margin-bottom: 0.5rem;">📁</div>
                     <div style="font-weight: 600; margin-bottom: 0.5rem;">第二步</div>
                     <p style="font-size: 0.9rem; color: #64748b;">上传您的Excel或CSV文件</p>
                 </div>
-                <div style="background-color: #f8fafc; padding: 1rem; border-radius: 0.5rem; width: 180px; text-align: center;">
+                <div style="background-color: #f8fafc; padding: 1rem; border-radius: 0.5rem; width: 180px; min-width: 150px; max-width: 200px; text-align: center; flex: 1;">
                     <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
                     <div style="font-weight: 600; margin-bottom: 0.5rem;">第三步</div>
                     <p style="font-size: 0.9rem; color: #64748b;">配置标注要求并开始处理</p>
@@ -624,32 +717,16 @@ def main():
     
     # 侧边栏配置
     with st.sidebar:
-        # 用户信息和退出登录
-        st.markdown(f"""
-        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1rem; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #dee2e6;">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div>
-                    <span style="color: #495057; font-size: 0.9rem;">👤 欢迎回来</span><br>
-                    <strong style="color: #212529;">{st.session_state.username}</strong>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        if st.button("🚪 退出登录", use_container_width=True):
-            st.session_state.authenticated = False
-            if 'username' in st.session_state:
-                del st.session_state.username
-            st.rerun()
-        
-        st.markdown("---")
         
         st.markdown("""
-        <div style="text-align: center; margin-bottom: 1rem;">
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); width: 80px; height: 80px; border-radius: 20px; margin: 0 auto 0.5rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);">
-                <span style="font-size: 2.5rem;">🎯</span>
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <div style="background: #667eea; width: 70px; height: 70px; border-radius: 16px; 
+                        margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;
+                        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);">
+                <span style="font-size: 2.2rem;">🎯</span>
             </div>
-            <p style="font-weight: 600; color: #334155;">AI Excel 智能标注控制面板</p>
+            <div style="font-weight: 600; color: #334155; font-size: 1rem; margin: 0;">控制面板</div>
+            <div style="font-size: 0.8rem; color: #64748b; margin: 0.3rem 0 0 0;">智能标注配置中心</div>
         </div>
         """, unsafe_allow_html=True)
         
@@ -818,12 +895,42 @@ def main():
                 key="advanced_max_tokens"
             )
         
-        # 添加版本信息 - 移除绝对定位
+        # 用户信息和退出登录 - 放在底部
         st.markdown("<br><br>", unsafe_allow_html=True)
+        st.markdown("---")
+        
+        st.markdown(f"""
+        <div style="background: #f8fafc; padding: 1rem; border-radius: 10px; margin-bottom: 1rem; border: 1px solid #e2e8f0;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div style="background: #667eea; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <span style="color: white; font-weight: 600; font-size: 1rem;">
+                        {st.session_state.username[0].upper() if st.session_state.username else 'U'}
+                    </span>
+                </div>
+                <div>
+                    <div style="color: #64748b; font-size: 0.8rem; margin: 0;">欢迎回来</div>
+                    <div style="color: #1e293b; font-weight: 600; font-size: 0.95rem; margin: 0;">
+                        {st.session_state.username}
+                    </div>
+                </div>
+                <div style="margin-left: auto;">
+                    <div style="width: 10px; height: 10px; background: #10b981; border-radius: 50%;"></div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button("🚪 退出登录", use_container_width=True, type="secondary"):
+            st.session_state.authenticated = False
+            if 'username' in st.session_state:
+                del st.session_state.username
+            st.rerun()
+        
+        # 版本信息
         st.markdown("""
         <div style="text-align: center; font-size: 0.8rem; color: #94a3b8; padding: 1rem 0;">
             <div style="margin-bottom: 0.5rem;">
-                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600;">AI Excel 智能标注</span> v1.0
+                <span style="color: #667eea; font-weight: 600;">AI Excel 智能标注</span> v1.0
             </div>
             <div style="font-size: 0.7rem;">
                 🎯 Excel数据智能标注解决方案
