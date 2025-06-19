@@ -718,17 +718,7 @@ def main():
     # 侧边栏配置
     with st.sidebar:
         
-        st.markdown("""
-        <div style="text-align: center; margin-bottom: 1.5rem;">
-            <div style="background: #667eea; width: 70px; height: 70px; border-radius: 16px; 
-                        margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;
-                        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);">
-                <span style="font-size: 2.2rem;">🎯</span>
-            </div>
-            <div style="font-weight: 600; color: #334155; font-size: 1rem; margin: 0;">控制面板</div>
-            <div style="font-size: 0.8rem; color: #64748b; margin: 0.3rem 0 0 0;">智能标注配置中心</div>
-        </div>
-        """, unsafe_allow_html=True)
+
         
         st.markdown("### ⚙️ 配置设置")
         
